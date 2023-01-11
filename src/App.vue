@@ -1,5 +1,6 @@
 <script setup>
 import { onMounted, ref } from 'vue';
+import Circle from './Circle.js';
 
 const myCanvas = ref(null);
 const password = ref('');
@@ -12,8 +13,25 @@ const generateRandomChar = () => {
     return String.fromCharCode(charCode);
 }
 
+// Variables store the string hsl value
+// used by the circles later on
+const redColor = 'hsl(0, 80%, 60%)';
+const blueColor = 'hsl(200, 100%, 50%)';
+const greenColor = 'hsl(100, 80%, 40%)';
+
 onMounted(() => {
-    console.log(generateRandomChar());
+    // console.log(generateRandomChar());
+    // ^ Used for testing
+
+    const context = myCanvas.value.getContext('2d');
+    myCanvas.value.height = window.innerHeight;
+    myCanvas.value.width = window.innerWidth;
+
+    const circles = [
+        new Circle(context, 100, 100, 50, redColor),
+        new Circle(context, 300, 100, 50, blueColor),
+        new Circle(context, 100, 300, 50, greenColor)
+    ];
 });
 
 </script>
@@ -33,6 +51,5 @@ onMounted(() => {
         position: fixed;
         inset: 0;
         height: 100%;
-        width: 100%;
     }
 </style>
