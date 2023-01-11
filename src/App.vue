@@ -19,19 +19,24 @@ const redColor = 'hsl(0, 80%, 60%)';
 const blueColor = 'hsl(200, 100%, 50%)';
 const greenColor = 'hsl(100, 80%, 40%)';
 
+// Events used by the floating circles on screen
+const addEvent = () => password.value += generateRandomChar();
+const undoEvent = () => password.value.slice(0, -1);
+const resetEvent = () => password.value = '';
+
+const initCanvas = () => {
+    myCanvas.value.height = window.innerHeight;
+    myCanvas.value.width = window.innerWidth;   
+}
+
 onMounted(() => {
     // console.log(generateRandomChar());
     // ^ Used for testing
 
     const context = myCanvas.value.getContext('2d');
-    myCanvas.value.height = window.innerHeight;
-    myCanvas.value.width = window.innerWidth;
+    initCanvas();
 
-    const circles = [
-        new Circle(context, 100, 100, 50, redColor),
-        new Circle(context, 300, 100, 50, blueColor),
-        new Circle(context, 100, 300, 50, greenColor)
-    ];
+    window.addEventListener('resize', initCanvas);
 });
 
 </script>
@@ -44,7 +49,7 @@ onMounted(() => {
 
 <style scoped>
     p {
-        padding: .5rem;
+        margin: 1rem;
     }
 
     #myCanvas {
